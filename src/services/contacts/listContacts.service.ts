@@ -23,7 +23,7 @@ const listContactsService = async (clientId: number): Promise<Client> => {
   if (!client) {
     throw new AppError("Client not found!", 404);
   }
-  console.log(client);
+
   return client;
 };
 export { listContactsService };
