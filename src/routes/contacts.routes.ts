@@ -3,6 +3,7 @@ import { loginController } from "../controllers/login.controllers";
 import {
   createContactController,
   deleteContactController,
+  listClientContactsController,
   updateContactController,
 } from "../controllers/contacts.controllers";
 import ensureTokenIsValid from "../middlewares/ensureTokenIsValid";
@@ -18,5 +19,6 @@ contactRoutes.patch(
   ensureDataIsValidMiddleware(contactSchemaUpdateRequest),
   updateContactController
 );
+contactRoutes.get("", ensureTokenIsValid, listClientContactsController);
 contactRoutes.delete("/:id", ensureIsOwner, deleteContactController);
 export default contactRoutes;

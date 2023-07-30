@@ -19,6 +19,10 @@ const clientSchemaRequest = clientSchema.omit({
   createdAt: true,
   contacts: true,
 });
+const clientSchemaRequestDois = clientSchema.omit({
+  createdAt: true,
+  contacts: true,
+});
 const clientSchemaResponse = clientSchema.omit({
   password: true,
 });
@@ -38,4 +42,5 @@ export {
   clientSchemaUpdate,
   clientSchemaUpdateRequest,
   clientsSchemaResponse,
+  clientSchemaRequestDois,
 };

@@ -33,6 +33,7 @@ const logIn = async (data: TLoginRequest): Promise<string> => {
     subject: String(client.id),
   });
 
+  console.log(token);
   return token;
 };
 

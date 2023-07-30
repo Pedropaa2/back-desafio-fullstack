@@ -6,6 +6,7 @@ import {
 } from "../interfaces/clients.interfaces";
 import {
   clientSchemaRequest,
+  clientSchemaRequestDois,
   clientSchemaResponse,
   clientsSchemaResponse,
 } from "../schemas/clients.schemas";
@@ -25,7 +26,7 @@ const createClientController = async (
 
   const newUser: Client = await createUserService(userData);
 
-  const response: TClientResponse = clientSchemaResponse.parse(newUser);
+  const response: TClientRequest = clientSchemaRequestDois.parse(newUser);
 
   return res.status(201).json(response);
 };

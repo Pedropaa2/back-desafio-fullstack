@@ -13,6 +13,10 @@ import { Contact } from "../entities/contacts.entitie";
 import { createContactService } from "../services/contacts/createContact.service";
 import { updateContactService } from "../services/contacts/updateContact.service";
 import { deleteContactService } from "../services/contacts/deleteContact.service";
+import { listContactsService } from "../services/contacts/listContacts.service";
+import { Client } from "../entities/clients.entitie";
+import { TClientResponse } from "../interfaces/clients.interfaces";
+import { clientSchemaResponse } from "../schemas/clients.schemas";
 
 const createContactController = async (
   req: Request,
@@ -49,9 +53,21 @@ const deleteContactController = async (
 
   return res.status(204).send();
 };
+const listClientContactsController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const id = res.locals.token.id;
+  const response: Client = await listContactsService(id);
+
+  const parsedResponse: TClientResponse = clientSchemaResponse.parse(response);
+
+  return res.status(200).json(parsedResponse);
+};
 
 export {
   createContactController,
   updateContactController,
   deleteContactController,
+  listClientContactsController,
 };
