@@ -12,6 +12,8 @@ import {
   updateClientController,
 } from "../controllers/clients.controllers";
 import ensureEmailIsValidMiddleware from "../middlewares/ensureEmailIsValid";
+import ensureIsContactOwner from "../middlewares/ensureIsContactOnwer";
+import ensureIsOwner from "../middlewares/ensureIsOwner";
 
 const clientRoutes: Router = Router();
 
@@ -27,8 +29,9 @@ clientRoutes.get("/:id", listClientController);
 
 clientRoutes.patch(
   "/:id",
+  ensureIsOwner,
   ensureDataIsValidMiddleware(clientSchemaUpdateRequest),
   updateClientController
 );
-clientRoutes.delete("/:id", deleteClientController);
+clientRoutes.delete("/:id", ensureIsOwner, deleteClientController);
 export default clientRoutes;

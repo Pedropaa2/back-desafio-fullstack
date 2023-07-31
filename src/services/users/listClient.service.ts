@@ -16,8 +16,6 @@ const listClientService = async (clientId: number): Promise<Client> => {
     },
   });
 
-  console.log(client);
-
   if (!client) {
     throw new AppError("Client not found", 404);
   }

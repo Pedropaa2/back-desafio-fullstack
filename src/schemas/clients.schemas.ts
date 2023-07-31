@@ -22,6 +22,7 @@ const clientSchemaRequest = clientSchema.omit({
 const clientSchemaRequestDois = clientSchema.omit({
   createdAt: true,
   contacts: true,
+  password: true,
 });
 const clientSchemaResponse = clientSchema.omit({
   password: true,

@@ -20,10 +20,14 @@ const updateUsersService = async (
 
   await userRepository.save(newUserData);
 
-  const returnUser: Client | null = await userRepository.findOneBy({
-    id: id,
+  const returnUser: Client | null = await userRepository.findOne({
+    where: {
+      id: id,
+    },
+    relations: {
+      contacts: true,
+    },
   });
-
   return returnUser;
 };
 export { updateUsersService };

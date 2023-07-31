@@ -9,16 +9,23 @@ import {
 import ensureTokenIsValid from "../middlewares/ensureTokenIsValid";
 import { contactSchemaUpdateRequest } from "../schemas/contacts.schemas";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid";
-import ensureIsOwner from "../middlewares/ensureIsOnwer";
+import ensureIsContactOwner from "../middlewares/ensureIsContactOnwer";
+import ensureIsOwner from "../middlewares/ensureIsOwner";
+import ensureContactEmailIsValidMiddleware from "../middlewares/ensureContactEmailIsValid";
 
 const contactRoutes: Router = Router();
-contactRoutes.post("", ensureTokenIsValid, createContactController);
+contactRoutes.post(
+  "",
+  ensureContactEmailIsValidMiddleware,
+  ensureTokenIsValid,
+  createContactController
+);
 contactRoutes.patch(
   "/:id",
-  ensureIsOwner,
+  ensureIsContactOwner,
   ensureDataIsValidMiddleware(contactSchemaUpdateRequest),
   updateContactController
 );
 contactRoutes.get("", ensureTokenIsValid, listClientContactsController);
-contactRoutes.delete("/:id", ensureIsOwner, deleteContactController);
+contactRoutes.delete("/:id", ensureIsContactOwner, deleteContactController);
 export default contactRoutes;

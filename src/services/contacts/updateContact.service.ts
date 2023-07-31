@@ -12,7 +12,6 @@ const updateContactService = async (
   const oldClientData: Contact | null = await contactRepository.findOneBy({
     id: id,
   });
-  console.log(oldClientData);
 
   const newUserData = contactRepository.create({
     ...oldClientData,
@@ -21,10 +20,11 @@ const updateContactService = async (
 
   await contactRepository.save(newUserData);
 
-  const returnUser: Contact | null = await contactRepository.findOneBy({
-    id: id,
+  const returnUser: Contact | null = await contactRepository.findOne({
+    where: {
+      id: id,
+    },
   });
-
   return returnUser;
 };
 export { updateContactService };

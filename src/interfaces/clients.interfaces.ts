@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   clientSchema,
   clientSchemaRequest,
+  clientSchemaRequestDois,
   clientSchemaResponse,
   clientSchemaUpdate,
   clientsSchemaResponse,
@@ -10,6 +11,8 @@ import {
 type TClient = z.infer<typeof clientSchema>;
 
 type TClientRequest = z.infer<typeof clientSchemaRequest>;
+
+type TClientRequestDois = z.infer<typeof clientSchemaRequestDois>;
 
 type TClientsResponse = z.infer<typeof clientsSchemaResponse>;
 
@@ -23,4 +26,5 @@ export {
   TClientResponse,
   TClientUpdate,
   TClientsResponse,
+  TClientRequestDois,
 };

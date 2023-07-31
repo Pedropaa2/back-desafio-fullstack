@@ -5,7 +5,7 @@ import { Client } from "../entities/clients.entitie";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 
-const ensureIsOwner = async (
+const ensureIsContactOwner = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -17,13 +17,16 @@ const ensureIsOwner = async (
   }
 
   const token = authorization.split(" ")[1];
+  if (!token) {
+    throw new AppError("Missing bearer token", 401);
+  }
 
   verify(
     token,
     String(process.env.SECRET_KEY),
     async (err: any, decoded: any) => {
       if (err) {
-        throw new AppError(err.message, 401);
+        throw new AppError("Missing bearer token", 401);
       }
 
       res.locals.token = {
@@ -42,7 +45,7 @@ const ensureIsOwner = async (
       });
 
       const contactExists = client!.contacts.some(
-        (contact) => contact.id == decoded.sub
+        (contact) => contact.id == parseInt(req.params.id)
       );
 
       if (!contactExists) {
@@ -54,4 +57,4 @@ const ensureIsOwner = async (
   );
 };
 
-export default ensureIsOwner;
+export default ensureIsContactOwner;

@@ -3,10 +3,12 @@ import { Request, Response } from "express";
 import {
   TContactRequest,
   TContactResponse,
+  TContactUpdate,
 } from "../interfaces/contacts.interfaces";
 import {
   contactSchemaRequest,
   contactSchemaResponse,
+  contactSchemaUpdate,
   contactsSchemaResponse,
 } from "../schemas/contacts.schemas";
 import { Contact } from "../entities/contacts.entitie";
@@ -41,7 +43,9 @@ const updateContactController = async (
 
   const newUserData = await updateContactService(contactData, userId);
 
-  return res.status(200).json(newUserData);
+  const response: TContactResponse = contactSchemaResponse.parse(newUserData);
+
+  return res.status(200).json(response);
 };
 const deleteContactController = async (
   req: Request,

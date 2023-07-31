@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   TClientRequest,
+  TClientRequestDois,
   TClientResponse,
   TClientsResponse,
 } from "../interfaces/clients.interfaces";
@@ -26,7 +27,7 @@ const createClientController = async (
 
   const newUser: Client = await createUserService(userData);
 
-  const response: TClientRequest = clientSchemaRequestDois.parse(newUser);
+  const response: TClientRequestDois = clientSchemaRequestDois.parse(newUser);
 
   return res.status(201).json(response);
 };
@@ -65,7 +66,9 @@ const updateClientController = async (
 
   const newUserData = await updateUsersService(userData, userId);
 
-  return res.status(200).json(clientSchemaResponse.parse(newUserData));
+  const parsedResponse: TClientResponse =
+    clientSchemaResponse.parse(newUserData);
+  return res.status(200).json(parsedResponse);
 };
 
 const deleteClientController = async (
